@@ -1,10 +1,10 @@
 @font-face {
 	font-family: 'captain-icon';
-	src:url('/fonts/captain-icon.eot?ndeh1k');
-	src:url('/fonts/captain-icon.eot?#iefixndeh1k') format('embedded-opentype'),
-		url('/fonts/captain-icon.woff?ndeh1k') format('woff'),
-		url('/fonts/captain-icon.ttf?ndeh1k') format('truetype'),
-		url('/fonts/captain-icon.svg?ndeh1k#captain-icon') format('svg');
+	src:url('/fonts/captain-icon.eot');
+	src:url('/fonts/captain-icon.eot') format('embedded-opentype'),
+		url('/fonts/captain-icon.woff') format('woff'),
+		url('/fonts/captain-icon.ttf') format('truetype'),
+		url('/fonts/captain-icon.svg?#captain-icon') format('svg');
 	font-weight: normal;
 	font-style: normal;
 }

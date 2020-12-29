@@ -3,6 +3,22 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
+    <loc>https://jmcarbo.github.io/summary/</loc>
+  </url>
+  
+  <url>
+    <loc>https://jmcarbo.github.io/education/</loc>
+  </url>
+  
+  <url>
+    <loc>https://jmcarbo.github.io/experience/</loc>
+  </url>
+  
+  <url>
+    <loc>https://jmcarbo.github.io/skills/</loc>
+  </url>
+  
+  <url>
     <loc>https://jmcarbo.github.io/miscelaneous/bla/</loc>
   </url>
   
@@ -11,11 +27,11 @@
   </url>
   
   <url>
-    <loc>https://jmcarbo.github.io/miscelaneous/</loc>
+    <loc>https://jmcarbo.github.io/</loc>
   </url>
   
   <url>
-    <loc>https://jmcarbo.github.io/</loc>
+    <loc>https://jmcarbo.github.io/miscelaneous/</loc>
   </url>
   
   <url>

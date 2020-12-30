@@ -8,12 +8,111 @@
     <language>en-us</language>
     <copyright>©2020-2021 Joan Marc Carbó Arnau</copyright><atom:link href="https://jmcarbo.github.io/index.xml" rel="self" type="application/rss+xml" />
     <item>
-      <title></title>
-      <link>https://jmcarbo.github.io/miscelaneous/bla/</link>
+      <title>Cap del Servei de Recursos Informàtics (CTO)</title>
+      <link>https://jmcarbo.github.io/experience/imim/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>https://jmcarbo.github.io/miscelaneous/bla/</guid>
-      <description>Hello world 4</description>
+      <guid>https://jmcarbo.github.io/experience/imim/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>PDD</title>
+      <link>https://jmcarbo.github.io/education/pdd/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://jmcarbo.github.io/education/pdd/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Màster en Societat de la Informació i Coneixement</title>
+      <link>https://jmcarbo.github.io/education/infosoc/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://jmcarbo.github.io/education/infosoc/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Bachelor of Computer Engineering</title>
+      <link>https://jmcarbo.github.io/education/ei/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://jmcarbo.github.io/education/ei/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Professor associat</title>
+      <link>https://jmcarbo.github.io/experience/upf/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://jmcarbo.github.io/experience/upf/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Metge Resident</title>
+      <link>https://jmcarbo.github.io/experience/clinic/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://jmcarbo.github.io/experience/clinic/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Especialista en Medicina Preventiva i Salut Pública</title>
+      <link>https://jmcarbo.github.io/education/epi/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://jmcarbo.github.io/education/epi/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Llicenciat en Medicina i Cirurgia</title>
+      <link>https://jmcarbo.github.io/education/medicine/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://jmcarbo.github.io/education/medicine/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Top Skills</title>
+      <link>https://jmcarbo.github.io/skills/top/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://jmcarbo.github.io/skills/top/</guid>
+      <description>Golang, DevOps, Kubernetes</description>
+    </item>
+    
+    <item>
+      <title>Languages</title>
+      <link>https://jmcarbo.github.io/skills/languages/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://jmcarbo.github.io/skills/languages/</guid>
+      <description>Catalan (Native or Bilingual), English (Professional Working), French (Limited Working)</description>
+    </item>
+    
+    <item>
+      <title>Docker Postgres Backup</title>
+      <link>https://jmcarbo.github.io/portfolio/postgres-backup/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://jmcarbo.github.io/portfolio/postgres-backup/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Technical Writer</title>
+      <link>https://jmcarbo.github.io/experience/byte/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://jmcarbo.github.io/experience/byte/</guid>
+      <description></description>
     </item>
     
   </channel>

@@ -7,5 +7,23 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <copyright>©2020-2021 Joan Marc Carbó Arnau</copyright><atom:link href="https://jmcarbo.github.io/skills/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Top Skills</title>
+      <link>https://jmcarbo.github.io/skills/top/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://jmcarbo.github.io/skills/top/</guid>
+      <description>Golang, DevOps, Kubernetes</description>
+    </item>
+    
+    <item>
+      <title>Languages</title>
+      <link>https://jmcarbo.github.io/skills/languages/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://jmcarbo.github.io/skills/languages/</guid>
+      <description>Catalan (Native or Bilingual), English (Professional Working), French (Limited Working)</description>
+    </item>
+    
   </channel>
 </rss>

@@ -3,11 +3,51 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
+    <loc>https://jmcarbo.github.io/experience/imim/</loc>
+  </url>
+  
+  <url>
+    <loc>https://jmcarbo.github.io/education/pdd/</loc>
+  </url>
+  
+  <url>
+    <loc>https://jmcarbo.github.io/education/infosoc/</loc>
+  </url>
+  
+  <url>
+    <loc>https://jmcarbo.github.io/education/ei/</loc>
+  </url>
+  
+  <url>
+    <loc>https://jmcarbo.github.io/experience/upf/</loc>
+  </url>
+  
+  <url>
+    <loc>https://jmcarbo.github.io/experience/clinic/</loc>
+  </url>
+  
+  <url>
+    <loc>https://jmcarbo.github.io/education/epi/</loc>
+  </url>
+  
+  <url>
+    <loc>https://jmcarbo.github.io/education/medicine/</loc>
+  </url>
+  
+  <url>
     <loc>https://jmcarbo.github.io/summary/</loc>
   </url>
   
   <url>
+    <loc>https://jmcarbo.github.io/skills/top/</loc>
+  </url>
+  
+  <url>
     <loc>https://jmcarbo.github.io/education/</loc>
+  </url>
+  
+  <url>
+    <loc>https://jmcarbo.github.io/skills/languages/</loc>
   </url>
   
   <url>
@@ -19,7 +59,11 @@
   </url>
   
   <url>
-    <loc>https://jmcarbo.github.io/miscelaneous/bla/</loc>
+    <loc>https://jmcarbo.github.io/portfolio/postgres-backup/</loc>
+  </url>
+  
+  <url>
+    <loc>https://jmcarbo.github.io/portfolio/</loc>
   </url>
   
   <url>
@@ -31,11 +75,11 @@
   </url>
   
   <url>
-    <loc>https://jmcarbo.github.io/miscelaneous/</loc>
+    <loc>https://jmcarbo.github.io/tags/</loc>
   </url>
   
   <url>
-    <loc>https://jmcarbo.github.io/tags/</loc>
+    <loc>https://jmcarbo.github.io/experience/byte/</loc>
   </url>
   
 </urlset>

@@ -80,6 +80,15 @@
     </item>
     
     <item>
+      <title>Helm and helmfile deployments</title>
+      <link>https://jmcarbo.github.io/portfolio/helm/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://jmcarbo.github.io/portfolio/helm/</guid>
+      <description></description>
+    </item>
+    
+    <item>
       <title>Top Skills</title>
       <link>https://jmcarbo.github.io/skills/top/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
@@ -121,7 +130,34 @@
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
       <guid>https://jmcarbo.github.io/skills/backend/</guid>
-      <description>Golang, Python, Ruby, Java, C</description>
+      <description>Golang, Python, Ruby, Java, C. Extensive use of SQL (Postgres, MySQL) and NoSQL (json based) databases. Experience designing microservices and distributed computing architectures.</description>
+    </item>
+    
+    <item>
+      <title>DevOps</title>
+      <link>https://jmcarbo.github.io/skills/devops/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://jmcarbo.github.io/skills/devops/</guid>
+      <description>Linux (x86_64, Arm64), Docker, Kubernetes, Helm and Helmfile, Terraform. Experience deploying email and storage infrastructures. Cloud environments: GCP, AWS, Linode, Wasabi (S3), Cloudflare.</description>
+    </item>
+    
+    <item>
+      <title>Networking</title>
+      <link>https://jmcarbo.github.io/skills/networking/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://jmcarbo.github.io/skills/networking/</guid>
+      <description>Experience designing physical corporate networks, SDN and wifi infrastructures.</description>
+    </item>
+    
+    <item>
+      <title>Scientific Computing</title>
+      <link>https://jmcarbo.github.io/skills/scientific/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://jmcarbo.github.io/skills/scientific/</guid>
+      <description>R language and scientific clusters running SLURM</description>
     </item>
     
     <item>

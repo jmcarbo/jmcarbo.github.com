@@ -35,6 +35,10 @@
   </url>
   
   <url>
+    <loc>https://jmcarbo.github.io/portfolio/helm/</loc>
+  </url>
+  
+  <url>
     <loc>https://jmcarbo.github.io/summary/</loc>
   </url>
   
@@ -72,6 +76,18 @@
   
   <url>
     <loc>https://jmcarbo.github.io/skills/backend/</loc>
+  </url>
+  
+  <url>
+    <loc>https://jmcarbo.github.io/skills/devops/</loc>
+  </url>
+  
+  <url>
+    <loc>https://jmcarbo.github.io/skills/networking/</loc>
+  </url>
+  
+  <url>
+    <loc>https://jmcarbo.github.io/skills/scientific/</loc>
   </url>
   
   <url>

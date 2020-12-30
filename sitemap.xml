@@ -47,10 +47,6 @@
   </url>
   
   <url>
-    <loc>https://jmcarbo.github.io/skills/languages/</loc>
-  </url>
-  
-  <url>
     <loc>https://jmcarbo.github.io/experience/</loc>
   </url>
   
@@ -64,6 +60,22 @@
   
   <url>
     <loc>https://jmcarbo.github.io/portfolio/</loc>
+  </url>
+  
+  <url>
+    <loc>https://jmcarbo.github.io/skills/frontend/</loc>
+  </url>
+  
+  <url>
+    <loc>https://jmcarbo.github.io/portfolio/cv_theme/</loc>
+  </url>
+  
+  <url>
+    <loc>https://jmcarbo.github.io/skills/backend/</loc>
+  </url>
+  
+  <url>
+    <loc>https://jmcarbo.github.io/skills/languages/</loc>
   </url>
   
   <url>

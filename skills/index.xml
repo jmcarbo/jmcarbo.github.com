@@ -17,12 +17,30 @@
     </item>
     
     <item>
+      <title>Frontend development</title>
+      <link>https://jmcarbo.github.io/skills/frontend/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://jmcarbo.github.io/skills/frontend/</guid>
+      <description>HTML, CSS, Javascript, Vue, templating and static site generation with Hugo</description>
+    </item>
+    
+    <item>
+      <title>Programming languages and backend development</title>
+      <link>https://jmcarbo.github.io/skills/backend/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://jmcarbo.github.io/skills/backend/</guid>
+      <description>Golang, Python, Ruby, Java, C</description>
+    </item>
+    
+    <item>
       <title>Languages</title>
       <link>https://jmcarbo.github.io/skills/languages/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
       <guid>https://jmcarbo.github.io/skills/languages/</guid>
-      <description>Catalan (Native or Bilingual), English (Professional Working), French (Limited Working)</description>
+      <description>Catalan (Native or Bilingual), Spanish (Native or Bilingual), English (Professional Working), French (Limited Working)</description>
     </item>
     
   </channel>

@@ -8,8 +8,190 @@
   <script src="https://d3js.org/d3.v7.min.js"></script>
   <script src="https://unpkg.com/timelines-chart"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/d3-cloud/1.2.5/d3.layout.cloud.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/htl@0.3.1/dist/htl.min.js"></script>
 
-    
+  <script>
+// Copyright 2021 Observable, Inc.
+// Released under the ISC license.
+// https://observablehq.com/@d3/bubble-chart
+function BubbleChart(data, {
+  name = ([x]) => x, // alias for label
+  label = name, // given d in data, returns text to display on the bubble
+  value = ([, y]) => y, // given d in data, returns a quantitative size
+  group, // given d in data, returns a categorical value for color
+  title, // given d in data, returns text to show on hover
+  link, // given a node d, its link (if any)
+  linkTarget = "_blank", // the target attribute for links, if any
+  width = 640, // outer width, in pixels
+  height = width, // outer height, in pixels
+  padding = 3, // padding between circles
+  margin = 1, // default margins
+  marginTop = margin, // top margin, in pixels
+  marginRight = margin, // right margin, in pixels
+  marginBottom = margin, // bottom margin, in pixels
+  marginLeft = margin, // left margin, in pixels
+  groups, // array of group names (the domain of the color scale)
+  colors = d3.schemeTableau10, // an array of colors (for groups)
+  fill = "#ccc", // a static fill color, if no group channel is specified
+  fillOpacity = 0.7, // the fill opacity of the bubbles
+  stroke, // a static stroke around the bubbles
+  strokeWidth, // the stroke width around the bubbles, if any
+  strokeOpacity, // the stroke opacity around the bubbles, if any
+} = {}) {
+  // Compute the values.
+  const D = d3.map(data, d => d);
+  const V = d3.map(data, value);
+  const G = group == null ? null : d3.map(data, group);
+  const I = d3.range(V.length).filter(i => V[i] > 0);
+
+  // Unique the groups.
+  if (G && groups === undefined) groups = I.map(i => G[i]);
+  groups = G && new d3.InternSet(groups);
+
+  // Construct scales.
+  const color = G && d3.scaleOrdinal(groups, colors);
+
+  // Compute labels and titles.
+  const L = label == null ? null : d3.map(data, label);
+  const T = title === undefined ? L : title == null ? null : d3.map(data, title);
+
+  // Compute layout: create a 1-deep hierarchy, and pack it.
+  const root = d3.pack()
+      .size([width - marginLeft - marginRight, height - marginTop - marginBottom])
+      .padding(padding)
+    (d3.hierarchy({children: I})
+      .sum(i => V[i]));
+
+  const svg = d3.create("svg")
+      .attr("width", width)
+      .attr("height", height)
+      .attr("viewBox", [-marginLeft, -marginTop, width, height])
+      .attr("style", "max-width: 100%; height: auto; height: intrinsic;")
+      .attr("fill", "currentColor")
+      .attr("font-size", 10)
+      .attr("font-family", "sans-serif")
+      .attr("text-anchor", "middle");
+
+  const leaf = svg.selectAll("a")
+    .data(root.leaves())
+    .join("a")
+      .attr("xlink:href", link == null ? null : (d, i) => link(D[d.data], i, data))
+      .attr("target", link == null ? null : linkTarget)
+      .attr("transform", d => `translate(${d.x},${d.y})`);
+
+  leaf.append("circle")
+      .attr("stroke", stroke)
+      .attr("stroke-width", strokeWidth)
+      .attr("stroke-opacity", strokeOpacity)
+      .attr("fill", G ? d => color(G[d.data]) : fill == null ? "none" : fill)
+      .attr("fill-opacity", fillOpacity)
+      .attr("r", d => d.r);
+
+  if (T) leaf.append("title")
+      .text(d => T[d.data]);
+
+  if (L) {
+    // A unique identifier for clip paths (to avoid conflicts).
+    const uid = `O-${Math.random().toString(16).slice(2)}`;
+
+    leaf.append("clipPath")
+        .attr("id", d => `${uid}-clip-${d.data}`)
+      .append("circle")
+        .attr("r", d => d.r);
+
+    leaf.append("text")
+        .attr("clip-path", d => `url(${new URL(`#${uid}-clip-${d.data}`, location)})`)
+      .selectAll("tspan")
+      .data(d => `${L[d.data]}`.split(/\n/g))
+      .join("tspan")
+        .attr("x", 0)
+        .attr("y", (d, i, D) => `${i - D.length / 2 + 0.85}em`)
+        .attr("fill-opacity", (d, i, D) => i === D.length - 1 ? 0.7 : null)
+        .text(d => d);
+  }
+
+  return Object.assign(svg.node(), {scales: {color}});
+}
+  </script>
+
+  <script>
+	 // Copyright 2021, Observable Inc.
+// Released under the ISC license.
+// https://observablehq.com/@d3/color-legend
+function Swatches(color, {
+  columns = null,
+  format,
+  unknown: formatUnknown,
+  swatchSize = 15,
+  swatchWidth = swatchSize,
+  swatchHeight = swatchSize,
+  marginLeft = 0
+} = {}) {
+  const id = `-swatches-${Math.random().toString(16).slice(2)}`;
+  const unknown = formatUnknown == null ? undefined : color.unknown();
+  const unknowns = unknown == null || unknown === d3.scaleImplicit ? [] : [unknown];
+  const domain = color.domain().concat(unknowns);
+  if (format === undefined) format = x => x === unknown ? formatUnknown : x;
+
+  function entity(character) {
+    return `&#${character.charCodeAt(0).toString()};`;
+  }
+
+  if (columns !== null) return htl.html`<div style="display: flex; align-items: center; margin-left: ${+marginLeft}px; min-height: 33px; font: 10px sans-serif;">
+  <style>
+
+.${id}-item {
+  break-inside: avoid;
+  display: flex;
+  align-items: center;
+  padding-bottom: 1px;
+}
+
+.${id}-label {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: calc(100% - ${+swatchWidth}px - 0.5em);
+}
+
+.${id}-swatch {
+  width: ${+swatchWidth}px;
+  height: ${+swatchHeight}px;
+  margin: 0 0.5em 0 0;
+}
+
+  </style>
+  <div style=${ {width: "100%", columns} }>${domain.map(value => {
+    const label = `${format(value)}`;
+    return htl.html`<div class=${id}-item>
+      <div class=${id}-swatch style=${ {background: color(value)} }></div>
+      <div class=${id}-label title=${label}>${label}</div>
+    </div>`;
+  })}
+  </div>
+</div>`;
+
+  return htl.html`<div style="display: flex; align-items: center; min-height: 33px; margin-left: ${+marginLeft}px; font: 10px sans-serif;">
+  <style>
+
+.${id} {
+  display: inline-flex;
+  align-items: center;
+  margin-right: 1em;
+}
+
+.${id}::before {
+  content: "";
+  width: ${+swatchWidth}px;
+  height: ${+swatchHeight}px;
+  margin-right: 0.5em;
+  background: var(--color);
+}
+
+  </style>
+  <div>${domain.map(value => htl.html`<span class="${id}" style="--color: ${color(value)}">${format(value)}</span>`)}</div>`;
+} 
+  </script>
   <script>
 // Copyright 2021 Observable, Inc.
 // Released under the ISC license.
@@ -283,14 +465,14 @@ function Sunburst(data, { // data is either tabular (array of objects) or hierar
 </head>
 <body>
 	<div class="flex">
-  <div class="w-11/12 bg-blue-200 rounded-r-lg mt-5 mb-5 p-5">
-    <div class="text-right text-blue-600 text-4xl float-left font-extrabold">
+  <div class="w-11/12 bg-blue-200 rounded-r-lg mt-5 p-5">
+    <div class="text-right text-blue-600 text-3xl float-left font-extrabold">
       <svg class="float-left" width="70" height="70" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
 </svg>
 &nbsp;<a href="/">Work Profile</a>
     </div>
-    <div class="text-right text-2xl text-blue-600 font-bold">
+    <div class="text-right text-xl text-blue-600 font-bold">
       Joan Marc Carbó Arnau <span class="text-sm font-normal">BCS, MD</span>
     </div>
     <div class="float-right text-right text-md text-blue-600 mt-3">
@@ -351,9 +533,10 @@ function Sunburst(data, { // data is either tabular (array of objects) or hierar
 
 
 
+<!--
 
 <div class="flex mt-3">
-  <div class="w-3/12 mt-5 p-5 bg-blue-100 rounded-r-lg">
+  <div class="w-3/12 p-5 bg-blue-100 rounded-r-lg">
     <div class="text-blue-600 font-bold text-right text-xl">
 	    <a href="https://jmcarbo.github.io/summary/">Industries</a>&nbsp;
       <div class="float-right">
@@ -365,7 +548,9 @@ function Sunburst(data, { // data is either tabular (array of objects) or hierar
     </div>
     </div>
   </div>
-  <div class="w-9/12 mt-5 mr-5 ml-5 bg-gray-50 p-5 rounded-l-lg">
+  <div class="w-9/12 mr-5 ml-5 bg-gray-50 rounded-l-lg">
+    <div class="pt-1 pl-1" id="myProfile-key">
+    </div>
     <div id="myProfile">
     </div>
   </div>
@@ -373,7 +558,7 @@ function Sunburst(data, { // data is either tabular (array of objects) or hierar
 
 
 <div class="flex mt-3">
-  <div class="w-3/12 mt-5 p-5 bg-blue-100 rounded-r-lg">
+  <div class="w-3/12 p-5 bg-blue-100 rounded-r-lg">
     <div class="text-blue-600 font-bold text-right text-xl">
 	    <a href="https://jmcarbo.github.io/summary/">Tasks</a>&nbsp;
       <div class="float-right">
@@ -385,8 +570,56 @@ function Sunburst(data, { // data is either tabular (array of objects) or hierar
     </div>
     </div>
   </div>
-  <div class="w-9/12 mt-5 mr-5 ml-5 bg-gray-50 p-5 rounded-l-lg">
+  <div class="w-9/12 mr-5 ml-5 bg-gray-50 rounded-l-lg">
+    <div class="pt-1 pl-1" id="myProfile2-key">
+    </div>
     <div id="myProfile2">
+    </div>
+  </div>
+</div>
+
+-->
+
+
+<div class="flex mt-3">
+  <div class="w-3/12 p-5 bg-blue-100 rounded-r-lg">
+    <div class="text-blue-600 font-bold text-right text-xl">
+	    <a href="https://jmcarbo.github.io/summary/">Industries</a>&nbsp;
+      <div class="float-right">
+	
+      <svg width="24" height="24" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+</svg>
+
+    </div>
+    </div>
+  </div>
+  <div class="w-9/12 mr-5 ml-5 bg-gray-50 rounded-l-lg">
+    <div class="pt-1 pl-1" id="myAreas-key">
+    </div>
+    <div id="myAreas">
+    </div>
+  </div>
+</div>
+
+
+<div class="flex mt-3">
+  <div class="w-3/12 p-5 bg-blue-100 rounded-r-lg">
+    <div class="text-blue-600 font-bold text-right text-xl">
+	    <a href="https://jmcarbo.github.io/summary/">Taks</a>&nbsp;
+      <div class="float-right">
+	
+      <svg width="24" height="24" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+</svg>
+
+    </div>
+    </div>
+  </div>
+  <div class="w-9/12 mr-5 ml-5 bg-gray-50 rounded-l-lg">
+    <div class="pt-1 pl-1" id="myTasks-key">
+    </div>
+    <div id="myTasks">
     </div>
   </div>
 </div>
@@ -404,75 +637,93 @@ function Sunburst(data, { // data is either tabular (array of objects) or hierar
   
   
         { name:  "Finance", 
-			value: 70 }
+			value: 70
+			 }
   
   ,
         { name:  "Insurance", 
-			value: 60 }
+			value: 60
+			 }
   
   ,
         { name:  "Real Sate", 
-			value: 60 }
+			value: 60
+			 }
   
   ,
         { name:  "Fintech", 
-			value: 80 }
+			value: 80
+			 }
   
   ,
         { name:  "Healthcare", 
-			value: 90 }
+			value: 90
+			 }
   
   ,
         { name:  "Manufacturing", 
-			value: 60 }
+			value: 60
+			 }
   
   ,
         { name:  "Hitech Startup", 
-			value: 90 }
+			value: 90
+			 }
   
   ,
         { name:  "Internet Sales", 
-			value: 60 }
+			value: 60
+			 }
   
   ,
         { name:  "Internet Services", 
-			value: 70 }
+			value: 70
+			 }
   
   ,
         { name:  "Logistics", 
-			value: 50 }
+			value: 50
+			 }
   
   ,
         { name:  "Academics", 
-			value: 40 }
+			value: 40
+			 }
   
   ,
         { name:  "Law", 
-			value: 60 }
+			value: 60
+			 }
   
   ,
         { name:  "Transport Public Utilities", 
-			value: 50 }
+			value: 50
+			 }
   
   ,
         { name:  "Public Sector", 
-			value: 50 }
+			value: 50
+			 }
   
   ,
         { name:  "First Sector In.", 
-			value: 40 }
+			value: 40
+			 }
   
   ,
         { name:  "Mining", 
-			value: 30 }
+			value: 30
+			 }
   
   ,
         { name:  "Wholesale", 
-			value: 40 }
+			value: 40
+			 }
   
   ,
         { name:  "Retail", 
-			value: 40 }
+			value: 40
+			 }
   
     ]
   }
@@ -483,35 +734,39 @@ function Sunburst(data, { // data is either tabular (array of objects) or hierar
     children: [
   
   
-        { name:  "Mentoring", 
-			value: 7 }
-  
-  ,
-        { name:  "Team Building", 
-			value: 6 }
-  
-  ,
-        { name:  "Coding", 
-			value: 7 }
-  
-  ,
-        { name:  "Testing", 
-			value: 5 }
-  
-  ,
-        { name:  "Quality Control", 
-			value: 5 }
+        { name:  "Creativity", 
+			value: 10 }
   
   ,
         { name:  "Solution Design", 
 			value: 10 }
   
   ,
-        { name:  "Project Management", 
-			value: 6 }
+        { name:  "Innovation", 
+			value: 10 }
+  
+  ,
+        { name:  "DevOps", 
+			value: 8 }
+  
+  ,
+        { name:  "Security", 
+			value: 8 }
+  
+  ,
+        { name:  "Mentoring", 
+			value: 7 }
+  
+  ,
+        { name:  "Coding", 
+			value: 7 }
   
   ,
         { name:  "Customer Relations", 
+			value: 7 }
+  
+  ,
+        { name:  "Data Analysis", 
 			value: 7 }
   
   ,
@@ -519,11 +774,31 @@ function Sunburst(data, { // data is either tabular (array of objects) or hierar
 			value: 6 }
   
   ,
-        { name:  "Sales", 
-			value: 2 }
+        { name:  "Budgeting", 
+			value: 6 }
+  
+  ,
+        { name:  "Team Building", 
+			value: 6 }
+  
+  ,
+        { name:  "Project Management", 
+			value: 6 }
+  
+  ,
+        { name:  "Quality Control", 
+			value: 5 }
+  
+  ,
+        { name:  "Testing", 
+			value: 5 }
   
   ,
         { name:  "Purchase", 
+			value: 3 }
+  
+  ,
+        { name:  "Reporting", 
 			value: 3 }
   
   ,
@@ -531,32 +806,8 @@ function Sunburst(data, { // data is either tabular (array of objects) or hierar
 			value: 2 }
   
   ,
-        { name:  "Reporting", 
-			value: 3 }
-  
-  ,
-        { name:  "DevOps", 
-			value: 8 }
-  
-  ,
-        { name:  "Data Analysis", 
-			value: 7 }
-  
-  ,
-        { name:  "Security", 
-			value: 8 }
-  
-  ,
-        { name:  "Budgeting", 
-			value: 6 }
-  
-  ,
-        { name:  "Innovation", 
-			value: 10 }
-  
-  ,
-        { name:  "Creativity", 
-			value: 10 }
+        { name:  "Sales", 
+			value: 2 }
   
   ,
         { name:  "Travel", 
@@ -576,84 +827,104 @@ function Sunburst(data, { // data is either tabular (array of objects) or hierar
     children: [
   
   
-        { name:  "Mentoring", 
-			value: 7 }
+        { name:  "Creativity",  
+			value: 10
+			 }
   
   ,
-        { name:  "Team Building", 
-			value: 6 }
+        { name:  "Solution Design",  
+			value: 10
+			 }
   
   ,
-        { name:  "Coding", 
-			value: 7 }
+        { name:  "Innovation",  
+			value: 10
+			 }
   
   ,
-        { name:  "Testing", 
-			value: 5 }
+        { name:  "DevOps",  
+			value: 8
+			 }
   
   ,
-        { name:  "Quality Control", 
-			value: 5 }
+        { name:  "Security",  
+			value: 8
+			 }
   
   ,
-        { name:  "Solution Design", 
-			value: 10 }
+        { name:  "Mentoring",  
+			value: 7
+			 }
   
   ,
-        { name:  "Project Management", 
-			value: 6 }
+        { name:  "Coding",  
+			value: 7
+			 }
   
   ,
-        { name:  "Customer Relations", 
-			value: 7 }
+        { name:  "Customer Relations",  
+			value: 7
+			 }
   
   ,
-        { name:  "Hardware", 
-			value: 6 }
+        { name:  "Data Analysis",  
+			value: 7
+			 }
   
   ,
-        { name:  "Sales", 
-			value: 2 }
+        { name:  "Hardware",  
+			value: 6
+			 }
   
   ,
-        { name:  "Purchase", 
-			value: 3 }
+        { name:  "Budgeting",  
+			value: 6
+			 }
   
   ,
-        { name:  "Clerk Work", 
-			value: 2 }
+        { name:  "Team Building",  
+			value: 6
+			 }
   
   ,
-        { name:  "Reporting", 
-			value: 3 }
+        { name:  "Project Management",  
+			value: 6
+			 }
   
   ,
-        { name:  "DevOps", 
-			value: 8 }
+        { name:  "Quality Control",  
+			value: 5
+			 }
   
   ,
-        { name:  "Data Analysis", 
-			value: 7 }
+        { name:  "Testing",  
+			value: 5
+			 }
   
   ,
-        { name:  "Security", 
-			value: 8 }
+        { name:  "Purchase",  
+			value: 3
+			 }
   
   ,
-        { name:  "Budgeting", 
-			value: 6 }
+        { name:  "Reporting",  
+			value: 3
+			 }
   
   ,
-        { name:  "Innovation", 
-			value: 10 }
+        { name:  "Clerk Work",  
+			value: 2
+			 }
   
   ,
-        { name:  "Creativity", 
-			value: 10 }
+        { name:  "Sales",  
+			value: 2
+			 }
   
   ,
-        { name:  "Travel", 
-			value: 7 }
+        { name:  "Travel",  
+			value: 7
+			 }
   
     ]
   }
@@ -666,7 +937,7 @@ function Sunburst(data, { // data is either tabular (array of objects) or hierar
   width: 500,
   height: 360
 		});
-  document.getElementById('myProfile').appendChild(chart);
+  //document.getElementById('myProfile').appendChild(chart);
 
   chart = Pack(myProfile2, {
   value: d => d.value, // size of each node (file); null for internal nodes (folders)
@@ -675,10 +946,236 @@ function Sunburst(data, { // data is either tabular (array of objects) or hierar
   width: 500,
   height: 360
 		});
-  document.getElementById('myProfile2').appendChild(chart);
+  //document.getElementById('myProfile2').appendChild(chart);
+
+  areas = [
+  
+  
+        { name:  "Finance", 
+			value: 70
+			 }
+  
+  ,
+        { name:  "Insurance", 
+			value: 60
+			 }
+  
+  ,
+        { name:  "Real Sate", 
+			value: 60
+			 }
+  
+  ,
+        { name:  "Fintech", 
+			value: 80
+			 }
+  
+  ,
+        { name:  "Healthcare", 
+			value: 90
+			 }
+  
+  ,
+        { name:  "Manufacturing", 
+			value: 60
+			 }
+  
+  ,
+        { name:  "Hitech Startup", 
+			value: 90
+			 }
+  
+  ,
+        { name:  "Internet Sales", 
+			value: 60
+			 }
+  
+  ,
+        { name:  "Internet Services", 
+			value: 70
+			 }
+  
+  ,
+        { name:  "Logistics", 
+			value: 50
+			 }
+  
+  ,
+        { name:  "Academics", 
+			value: 40
+			 }
+  
+  ,
+        { name:  "Law", 
+			value: 60
+			 }
+  
+  ,
+        { name:  "Transport Public Utilities", 
+			value: 50
+			 }
+  
+  ,
+        { name:  "Public Sector", 
+			value: 50
+			 }
+  
+  ,
+        { name:  "First Sector In.", 
+			value: 40
+			 }
+  
+  ,
+        { name:  "Mining", 
+			value: 30
+			 }
+  
+  ,
+        { name:  "Wholesale", 
+			value: 40
+			 }
+  
+  ,
+        { name:  "Retail", 
+			value: 40
+			 }
+  
+    ]
+  areas.sort((a,b) => (a.value > b.value) ? -1 : ((b.value > a.value) ? 1 : 0))
    // your page initialization code here
    // the DOM will be available here
+  chart = BubbleChart(areas, {
+    label: d => d.name.split(/(?=[A-Z][a-z])/g).join("\n"),
+    value: d => d.value,
+    group: d => d.value,
+    //title: d => `${d.id}\n${d.value.toLocaleString("en")}`,
+    //link: d => `https://github.com/prefuse/Flare/blob/master/flare/src/${d.id.replace(/\./g, "/")}.as`,
+    width: 370
+  })
+  document.getElementById('myAreas').appendChild(chart);
+		(function() {
+			})();
+  key = Swatches(chart.scales.color)
+  document.getElementById('myAreas-key').appendChild(key);
 
+  tasks = [
+  
+  
+        { name:  "Creativity", 
+			value: 10
+			 }
+  
+  ,
+        { name:  "Solution Design", 
+			value: 10
+			 }
+  
+  ,
+        { name:  "Innovation", 
+			value: 10
+			 }
+  
+  ,
+        { name:  "DevOps", 
+			value: 8
+			 }
+  
+  ,
+        { name:  "Security", 
+			value: 8
+			 }
+  
+  ,
+        { name:  "Mentoring", 
+			value: 7
+			 }
+  
+  ,
+        { name:  "Coding", 
+			value: 7
+			 }
+  
+  ,
+        { name:  "Customer Relations", 
+			value: 7
+			 }
+  
+  ,
+        { name:  "Data Analysis", 
+			value: 7
+			 }
+  
+  ,
+        { name:  "Hardware", 
+			value: 6
+			 }
+  
+  ,
+        { name:  "Budgeting", 
+			value: 6
+			 }
+  
+  ,
+        { name:  "Team Building", 
+			value: 6
+			 }
+  
+  ,
+        { name:  "Project Management", 
+			value: 6
+			 }
+  
+  ,
+        { name:  "Quality Control", 
+			value: 5
+			 }
+  
+  ,
+        { name:  "Testing", 
+			value: 5
+			 }
+  
+  ,
+        { name:  "Purchase", 
+			value: 3
+			 }
+  
+  ,
+        { name:  "Reporting", 
+			value: 3
+			 }
+  
+  ,
+        { name:  "Clerk Work", 
+			value: 2
+			 }
+  
+  ,
+        { name:  "Sales", 
+			value: 2
+			 }
+  
+  ,
+        { name:  "Travel", 
+			value: 7
+			 }
+  
+    ]
+   // your page initialization code here
+   // the DOM will be available here
+  tasks.sort((a,b) => (a.Weight > b.Weight) ? -1 : ((b.Weight > a.Weight) ? 1 : 0))
+  chart = BubbleChart(tasks, {
+    label: d => d.name.split(/(?=[A-Z][a-z])/g).join("\n"),
+    value: d => d.value,
+    group: d => d.value,
+    //title: d => `${d.id}\n${d.value.toLocaleString("en")}`,
+    //link: d => `https://github.com/prefuse/Flare/blob/master/flare/src/${d.id.replace(/\./g, "/")}.as`,
+    width: 370
+  })
+  document.getElementById('myTasks').appendChild(chart);
+  
+  key = Swatches(chart.scales.color)
+  document.getElementById('myTasks-key').appendChild(key);
 })();
 </script>
 

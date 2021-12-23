@@ -324,180 +324,73 @@ function Sunburst(data, { // data is either tabular (array of objects) or hierar
 
 <div id="content">
 
-{{ define "icon-summary" }}
-<svg width="24" height="24" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-</svg>
-{{ end }}
 
-{{ define "icon-education" }}
-      <svg width="24" height="24" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-  <path fill="none" d="M12 14l9-5-9-5-9 5 9 5z" />
-  <path fill="none" d="M12 14l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14z" />
-<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 14l9-5-9-5-9 5 9 5zm0 0l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14zm-4 6v-7.5l4-2.222" />
-</svg>
-{{ end }}
 
-{{ define "icon-experience" }}
-<svg width="24" height="24" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
-</svg>
-{{ end }}
 
-{{ define "icon-skills" }}
-      <svg width="24" height="24" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
-</svg>
-{{ end }}
 
-{{ define "icon-portfolio" }}
-<svg width="24" height="24" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10" />
-</svg>
-{{ end }}
 
-{{ define "section" }}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 <div class="flex mt-3">
   <div class="w-3/12 mt-5 p-5 bg-blue-100 rounded-r-lg">
     <div class="text-blue-600 font-bold text-right text-xl">
-	    <a href="https://jmcarbo.github.io/summary/">{{.title}}</a>&nbsp;
+	    <a href="https://jmcarbo.github.io/summary/">Industries</a>&nbsp;
       <div class="float-right">
-	{{ .icon }}
+	
+      <svg width="24" height="24" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+</svg>
+
     </div>
     </div>
   </div>
   <div class="w-9/12 mt-5 mr-5 ml-5 bg-gray-50 p-5 rounded-l-lg">
-    <div id="{{.profile}}">
+    <div id="myProfile">
     </div>
   </div>
 </div>
-{{ end }}
-
-{{ define "education" }}
-  <ul>
-  {{ range . }}
-  <li class="leading-tight"><b>{{.Title}}</b> - <i>{{.Institution}}</i>. ({{.Period}})<br/><span class="text-gray-400 text-sm">{{.Keywords}}</span></li>
-  {{ end }}
-  </ul>
-{{ end }}
 
 
-{{ define "period" }}
-  {{ $a := (. | strings.Split " - ")}}
-  {{ $start := (index $a 0) }}
-  {{ $end := (index $a 1) }}
-  {{ if eq $end "Present" }}
-  	{{- math.Sub ("2021"|conv.ToInt) ($start|conv.ToInt) -}}
-  {{ else }}
-  	{{- math.Sub ($end|conv.ToInt) ($start|conv.ToInt) -}}
-  {{ end }}
-{{ end }}
-
-{{ define "experience" }}
-  <ul>
-  {{ range . }}
-  <li class="leading-tight"><b>{{.Position}}</b> - <i>{{.Institution}}</i> - {{.Location}}. {{.Period}} (<i>{{- tmpl.Exec "period" .Period | strings.TrimSpace }} years</i>)<br/><span class="text-gray-400 text-sm">{{.Description}}</span></li>
-  {{ end }}
-  </ul>
-{{ end }}
-
-
-{{ define "timeline" }}
 <div class="flex mt-3">
-  <div class="w-full mt-5 p-5 bg-blue-100 rounded-r-lg mr-5">
-	  <div class="text-blue-600 font-bold text-xl mb-5">Professional timeline</div>
-    <div id="timeline"></div>
+  <div class="w-3/12 mt-5 p-5 bg-blue-100 rounded-r-lg">
+    <div class="text-blue-600 font-bold text-right text-xl">
+	    <a href="https://jmcarbo.github.io/summary/">Tasks</a>&nbsp;
+      <div class="float-right">
+	
+      <svg width="24" height="24" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+</svg>
+
+    </div>
+    </div>
+  </div>
+  <div class="w-9/12 mt-5 mr-5 ml-5 bg-gray-50 p-5 rounded-l-lg">
+    <div id="myProfile2">
+    </div>
   </div>
 </div>
-  <script>
-  const myChart = TimelinesChart();
-  myData = [
-  {
-    group: "Education",
-    data: [
-    {{ range  $i, $v := (datasource "cv").Education }}
-      {{ if ne $i 0 }},{{end}}
-      {
-	label: "{{$v.Title}}",
-        data: [
-          {
-	    timeRange: ["{{$v.Start}}", "{{$v.End}}"],
-	    val: "{{$v.Axis}}"
-          }
-        ]
-      }
-    {{ end }}
-    ]
-  },
-  {
-    group: "Experience",
-    data: [
-    {{ range  $i, $v := (datasource "cv").Experience }}
-      {{ if ne $i 0 }},{{end}}
-      {
-	label: "{{$v.Position}}",
-        data: [
-          {
-	    timeRange: ["{{$v.Start}}", "{{$v.End}}"],
-	    val: "{{$v.Axis}}"
-          }
-        ]
-      }
-    {{ end }}
-    ]
-  }		    
-  ];
-  myChart
-    .width(1100)
-    .maxHeight(800)
-    .leftMargin(120)
-    .rightMargin(140)
-    //.topMargin(10)
-    //.bottomMargin(10)
-    .data(myData)
-    .zQualitative(true)
-    .enableOverview(false)
-    (document.getElementById('timeline'));
-  </script>
-{{ end }}
 
-
-{{ define "skills" }}
-  {{ range $i, $v := . }}
-  <div class="prose"><b>{{.Area}}</b></div> 
-      <div class="prose-sm mb-3">
-      <p>
-      {{ range .Subareas }}
-      {{ .Name }}
-      {{ end }}
-      </p>
-      <div id="wc{{$i}}"></div>
-      <script>
-	words{{$i}} = [
-      	{{ range $j, $v2 := .Subareas }}
-		{{ if ne $j 0 }},{{end}}
-			      {	text: "{{ .Name }}", size: 5, fill: color(Math.random()) }
-      	{{ end }}
-	];
-      wc{{$i}} = WordCloud(words{{$i}}, {
-        width: 250,
-        height: 100,
-        size: () => .3 + Math.random(),
-        word: d => d.text,
-	//size: d => d.size,
-        rotate: () => (~~(Math.random() * 6) - 3) * 30
-      });
-      document.getElementById('wc{{$i}}').appendChild(wc{{$i}});
-      </script>
-
-      </div>
-  {{ end }}
-{{ end }}
-
-
-
-{{ template "section" (dict "title" "Industries" "profile" "myProfile" "icon" (tmpl.Exec "icon-skills")) }}
-{{ template "section" (dict "title" "Tasks" "profile" "myProfile2" "icon" (tmpl.Exec "icon-skills")) }}
 
 <script>
 
@@ -508,11 +401,79 @@ function Sunburst(data, { // data is either tabular (array of objects) or hierar
   {
     name: "Areas",
     children: [
-  {{ range $i, $v := (datasource "work").Areas }}
-  {{ if ne $i 0 }},{{end}}
-        { name:  "{{.Name}}"{{if has . "Weight"}}, 
-			value: {{.Weight}}{{end}} }
-  {{ end }}
+  
+  
+        { name:  "Finance", 
+			value: 70 }
+  
+  ,
+        { name:  "Insurance", 
+			value: 60 }
+  
+  ,
+        { name:  "Real Sate", 
+			value: 60 }
+  
+  ,
+        { name:  "Fintech", 
+			value: 80 }
+  
+  ,
+        { name:  "Healthcare", 
+			value: 90 }
+  
+  ,
+        { name:  "Manufacturing", 
+			value: 60 }
+  
+  ,
+        { name:  "Hitech Startup", 
+			value: 90 }
+  
+  ,
+        { name:  "Internet Sales", 
+			value: 60 }
+  
+  ,
+        { name:  "Internet Services", 
+			value: 70 }
+  
+  ,
+        { name:  "Logistics", 
+			value: 50 }
+  
+  ,
+        { name:  "Academics", 
+			value: 40 }
+  
+  ,
+        { name:  "Law", 
+			value: 60 }
+  
+  ,
+        { name:  "Transport Public Utilities", 
+			value: 50 }
+  
+  ,
+        { name:  "Public Sector", 
+			value: 50 }
+  
+  ,
+        { name:  "First Sector In.", 
+			value: 40 }
+  
+  ,
+        { name:  "Mining", 
+			value: 30 }
+  
+  ,
+        { name:  "Wholesale", 
+			value: 40 }
+  
+  ,
+        { name:  "Retail", 
+			value: 40 }
+  
     ]
   }
   /*
@@ -520,11 +481,87 @@ function Sunburst(data, { // data is either tabular (array of objects) or hierar
   {
     name: "Tasks",
     children: [
-  {{ range $i, $v := (datasource "work").Tasks }}
-  {{ if ne $i 0 }},{{end}}
-        { name:  "{{.Name}}"{{if has . "Weight"}}, 
-			value: {{.Weight}}{{end}} }
-  {{ end }}
+  
+  
+        { name:  "Mentoring", 
+			value: 7 }
+  
+  ,
+        { name:  "Team Building", 
+			value: 6 }
+  
+  ,
+        { name:  "Coding", 
+			value: 7 }
+  
+  ,
+        { name:  "Testing", 
+			value: 5 }
+  
+  ,
+        { name:  "Quality Control", 
+			value: 5 }
+  
+  ,
+        { name:  "Solution Design", 
+			value: 10 }
+  
+  ,
+        { name:  "Project Management", 
+			value: 6 }
+  
+  ,
+        { name:  "Customer Relations", 
+			value: 7 }
+  
+  ,
+        { name:  "Hardware", 
+			value: 6 }
+  
+  ,
+        { name:  "Sales", 
+			value: 2 }
+  
+  ,
+        { name:  "Purchase", 
+			value: 3 }
+  
+  ,
+        { name:  "Clerk Work", 
+			value: 2 }
+  
+  ,
+        { name:  "Reporting", 
+			value: 3 }
+  
+  ,
+        { name:  "DevOps", 
+			value: 8 }
+  
+  ,
+        { name:  "Data Analysis", 
+			value: 7 }
+  
+  ,
+        { name:  "Security", 
+			value: 8 }
+  
+  ,
+        { name:  "Budgeting", 
+			value: 6 }
+  
+  ,
+        { name:  "Innovation", 
+			value: 10 }
+  
+  ,
+        { name:  "Creativity", 
+			value: 10 }
+  
+  ,
+        { name:  "Travel", 
+			value: 7 }
+  
     ]
   }
   */
@@ -537,11 +574,87 @@ function Sunburst(data, { // data is either tabular (array of objects) or hierar
   {
     name: "Tasks",
     children: [
-  {{ range $i, $v := (datasource "work").Tasks }}
-  {{ if ne $i 0 }},{{end}}
-        { name:  "{{.Name}}"{{if has . "Weight"}}, 
-			value: {{.Weight}}{{end}} }
-  {{ end }}
+  
+  
+        { name:  "Mentoring", 
+			value: 7 }
+  
+  ,
+        { name:  "Team Building", 
+			value: 6 }
+  
+  ,
+        { name:  "Coding", 
+			value: 7 }
+  
+  ,
+        { name:  "Testing", 
+			value: 5 }
+  
+  ,
+        { name:  "Quality Control", 
+			value: 5 }
+  
+  ,
+        { name:  "Solution Design", 
+			value: 10 }
+  
+  ,
+        { name:  "Project Management", 
+			value: 6 }
+  
+  ,
+        { name:  "Customer Relations", 
+			value: 7 }
+  
+  ,
+        { name:  "Hardware", 
+			value: 6 }
+  
+  ,
+        { name:  "Sales", 
+			value: 2 }
+  
+  ,
+        { name:  "Purchase", 
+			value: 3 }
+  
+  ,
+        { name:  "Clerk Work", 
+			value: 2 }
+  
+  ,
+        { name:  "Reporting", 
+			value: 3 }
+  
+  ,
+        { name:  "DevOps", 
+			value: 8 }
+  
+  ,
+        { name:  "Data Analysis", 
+			value: 7 }
+  
+  ,
+        { name:  "Security", 
+			value: 8 }
+  
+  ,
+        { name:  "Budgeting", 
+			value: 6 }
+  
+  ,
+        { name:  "Innovation", 
+			value: 10 }
+  
+  ,
+        { name:  "Creativity", 
+			value: 10 }
+  
+  ,
+        { name:  "Travel", 
+			value: 7 }
+  
     ]
   }
   ]
@@ -592,13 +705,7 @@ function Sunburst(data, { // data is either tabular (array of objects) or hierar
 </script>
 -->
 
-{{ define "portfolio" }}
-  <ul>
-  {{ range . }}
-  <li class="leading-tight"><a href="{{.URL}}" target="_blank"><b>{{.Title}}</b></a>: {{.Description}}<br/><span class="text-gray-400 text-sm">{{.URL}}</span></li>
-  {{ end }}
-  </ul>
-{{ end }}
+
 
 
 <!--

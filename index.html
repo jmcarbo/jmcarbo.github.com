@@ -319,7 +319,7 @@ function Sunburst(data, { // data is either tabular (array of objects) or hierar
 			</div>
 		</div>
 		<div class="w-full sm:w-1/12 bg-white mt-5 mb-5 ml-2 mr-2 items-center justify-center">
-			<img class="rounded-full max-h-40" src="img/jmca.jpeg">
+			<img class="rounded-full max-h-40 sm:max-h-fill justify-center mx-auto" src="img/jmca.jpeg">
 		</div>
 	</div>
 <div id="content">
@@ -567,13 +567,13 @@ storage farm - Cloud deployments - End user infrastructure and help desk. No ext
   }		    
   ];
 
-  myWidth = screen.width - (screen.width*0.18)
+  myWidth = window.innerWidth - (window.innerWidth*0.18)
   myRightMargin = 100
-  if (screen.width >= 1000) {
+  if (window.innerWidth >= 1000) {
   	myRightMargin = 400;
   }
   myLeftMargin = 0
-  if (screen.width >= 800) {
+  if (window.innerWidth >= 800) {
   	myLeftMargin = 120;
   }
   myChart
